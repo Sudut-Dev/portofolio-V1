@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FERNANDES — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ============================================================
+   CSS VARIABLES & RESET
+   ============================================================ */
+    :root {
+      --bg-primary: #0F172A;
+      --bg-secondary: #1E293B;
+      --bg-card: #1E293B;
+      --accent: #3B82F6;
+      --accent-hover: #60A5FA;
+      --accent-glow: rgba(59, 130, 246, 0.25);
+      --text-primary: #F8FAFC;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --border: rgba(248, 250, 252, 0.08);
+      --shadow: 0 4px 32px rgba(0, 0, 0, 0.4);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --nav-h: 72px;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #F8FAFC;
+      --bg-secondary: #EFF6FF;
+      --bg-card: #FFFFFF;
+      --text-primary: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #94A3B8;
+      --border: rgba(15, 23, 42, 0.1);
+      --shadow: 0 4px 32px rgba(59, 130, 246, 0.08);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.2;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      background: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 100px 0;
+    }
+
+    /* ============================================================
+   SCROLLBAR
+   ============================================================ */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    /* ============================================================
+   NAVBAR
+   ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      z-index: 1000;
+      transition: background var(--transition), box-shadow var(--transition), backdrop-filter var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    [data-theme="light"] #navbar.scrolled {
+      background: rgba(248, 250, 252, 0.85);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--nav-h);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .nav-logo span {
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: var(--border);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #themeToggle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+
+    #themeToggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+    }
+
+    .hamburger span {
+      width: 20px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    /* mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+      animation: slideDown 0.2s ease;
+    }
+
+    .mobile-nav.open {
+      display: flex;
+    }
+
+    .mobile-nav a {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
+    .mobile-nav a:hover {
+      color: var(--text-primary);
+      background: var(--border);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================================
+   HERO
+   ============================================================ */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 100px;
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-badge i {
+      font-size: 0.7rem;
+    }
+
+    .hero-name {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .hero-name .accent {
+      color: var(--accent);
+    }
+
+    .hero-title {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      min-height: 2em;
+      font-weight: 400;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background: var(--accent);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-size: 0.95rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all var(--transition);
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Avatar */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 320px;
+      height: 320px;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -16px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #8B5CF6, var(--accent)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .avatar-circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #8B5CF6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(59, 130, 246, 0.4);
+    }
+
+    .avatar-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-initials {
+      display: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 4rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .avatar-circle::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .floating-badge {
+      position: absolute;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      white-space: nowrap;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .floating-badge i {
+      color: var(--accent);
+    }
+
+    .fb-1 {
+      top: 10%;
+      right: -20px;
+      animation-delay: 0s;
+    }
+
+    .fb-2 {
+      bottom: 15%;
+      left: -20px;
+      animation-delay: 1.5s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-8px)
+      }
+    }
+
+    /* ============================================================
+   SECTION HEADER
+   ============================================================ */
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 4px 14px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-title .accent {
+      color: var(--accent);
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto;
+      font-size: 0.95rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #8B5CF6);
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ============================================================
+   ABOUT
+   ============================================================ */
+    #about {
+      background: var(--bg-secondary);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-photo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .photo-frame {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #8B5CF6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.3);
+      position: relative;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .info-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .info-chip i {
+      color: var(--accent);
+      width: 14px;
+    }
+
+    .about-text h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    .about-cta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    /* ============================================================
+   TECH STACK
+   ============================================================ */
+    .tech-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .tech-group-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tech-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .tech-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      cursor: default;
+    }
+
+    .tech-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .tech-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .tech-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .tech-level {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #8B5CF6);
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    .tech-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ============================================================
+   CERTIFICATES
+   ============================================================ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all var(--transition);
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px var(--accent-glow);
+    }
+
+    .cert-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--accent);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .cert-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .cert-issuer {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cert-issuer i {
+      color: var(--accent);
+    }
+
+    .cert-year {
+      display: inline-block;
+      padding: 3px 10px;
+      background: var(--bg-secondary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .cert-actions {
+      margin-top: auto;
+    }
+
+    /* ============================================================
+   PROJECTS
+   ============================================================ */
+    #projects {
+      background: var(--bg-secondary);
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 56px rgba(59, 130, 246, 0.15);
+      border-color: var(--accent);
+    }
+
+    .project-thumb {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.9;
+    }
+
+    .pt-1::before {
+      background: linear-gradient(135deg, #0f2a4a, #1d6aa5);
+    }
+
+    .pt-2::before {
+      background: linear-gradient(135deg, #1a0f3a, #6b21a8);
+    }
+
+    .pt-3::before {
+      background: linear-gradient(135deg, #0f2a1a, #065f46);
+    }
+
+    .pt-4::before {
+      background: linear-gradient(135deg, #2a1a0f, #92400e);
+    }
+
+    .project-thumb i {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .project-body {
+      padding: 22px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--bg-secondary);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .project-body h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .project-body p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* ============================================================
+   CONTACT
+   ============================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      transition: all var(--transition);
+    }
+
+    .contact-item:hover {
+      border-color: var(--accent);
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-item-text small {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .contact-item-text span {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+      transition: all var(--transition);
+      background: var(--bg-card);
+    }
+
+    .social-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    .contact-form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+    }
+
+    .form-error {
+      font-size: 0.75rem;
+      color: #f87171;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .form-error.show {
+      display: block;
+    }
+
+    /* ============================================================
+   FOOTER
+   ============================================================ */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-copy a {
+      color: var(--accent);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    #scrollTop {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all var(--transition);
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+      opacity: 0;
+      pointer-events: none;
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 100;
+    }
+
+    #scrollTop.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    #scrollTop:hover {
+      transform: translateY(-3px);
+      background: var(--accent-hover);
+    }
+
+    /* ============================================================
+   MODAL
+   ============================================================ */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.25s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95)translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      transition: all var(--transition);
+    }
+
+    .modal-close:hover {
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .modal-thumb {
+      height: 160px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: #fff;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.9;
+    }
+
+    .modal-thumb i {
+      position: relative;
+      z-index: 1;
+    }
+
+    .modal h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .modal p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .cert-preview {
+      width: 100%;
+      height: 200px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      border: 2px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .cert-preview i {
+      font-size: 3rem;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+
+    .cert-preview p {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ============================================================
+   FADE UP ANIMATION
+   ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-up-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .fade-up-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .fade-up-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .fade-up-delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    /* ============================================================
+   RESPONSIVE
+   ============================================================ */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .avatar-wrapper {
+        width: 220px;
+        height: 220px;
+      }
+
+      .hero-desc {
+        margin: 0 auto 36px;
+      }
+
+      .hero-cta {
+        justify-content: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photo {
+        order: -1;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cert-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name {
+        font-size: 2rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .about-info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-stats {
+        gap: 20px;
+      }
+
+      .floating-badge {
+        display: none;
+      }
+
+      .avatar-wrapper {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+     NAVBAR
+     ============================================================ -->
+  <nav id="navbar" role="navigation" aria-label="Menu utama">
+    <div class="container nav-inner">
+      <a href="#home" class="nav-logo" aria-label="FERNANDES Portfolio">
+        <img src="images/P.png" alt="Logo" class="logo-icon" onerror="this.style.display='none'">
+        <span></span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#techstack">Skills</a></li>
+        <li><a href="#certificates">Sertifikat</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button id="themeToggle" aria-label="Toggle dark/light mode">
+          <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Menu mobile">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#techstack">Skills</a>
+    <a href="#certificates">Sertifikat</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- ============================================================
+     HERO
+     ============================================================ -->
+  <section id="home" aria-label="Hero section">
+    <div class="hero-bg"></div>
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge fade-up">
+          <i class="fas fa-circle" style="color:#22c55e;font-size:0.5rem;"></i>
+          Available for freelance & full-time
+        </div>
+        <h1 class="hero-name fade-up fade-up-delay-1">
+          Halo, Saya<br><span class="accent">FERNANDES</span>
+        </h1>
+        <p class="hero-title fade-up fade-up-delay-2">
+          <span id="typingText"></span><span class="typing-cursor" aria-hidden="true"></span>
+        </p>
+        <p class="hero-desc fade-up fade-up-delay-3">
+          Full Stack Developer dengan pengalaman 3+ tahun dalam mengembangkan aplikasi web enterprise menggunakan Laravel dan Livewire / Vue.js. Terbiasa membangun sistem dari nol hingga deployment, termasuk integrasi REST API, manajemen database kompleks, dan implementasi fitur real-time menggunakan WebSocket. Fokus pada kode yang bersih, aman (CSRF, XSS, SQL Injection), dan optimal dalam performa.
+        </p>
+        <div class="hero-cta fade-up fade-up-delay-4">
+          <button class="btn btn-primary" onclick="scrollToSection('projects')">
+            <i class="fas fa-rocket"></i> Lihat Projek
+          </button>
+          <button class="btn btn-secondary" onclick="window.open('https://drive.google.com/file/d/1X0Z_Dh9NWG5ozwQgpId2DmG0YHwe3-P9/view?usp=sharing', '_blank')">
+              <i class="fas fa-download"></i> Download CV
+          </button>
+          <button class="btn btn-outline" onclick="scrollToSection('contact')">
+            <i class="fas fa-envelope"></i> Hubungi Saya
+          </button>
+        </div>
+        <div class="hero-stats fade-up" style="transition-delay:0.5s;">
+          <div class="stat-item">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Tahun Pengalaman</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Proyek Selesai</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Klien Puas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-up fade-up-delay-2">
+        <div class="avatar-wrapper">
+          <div class="avatar-ring" aria-hidden="true"></div>
+          <div class="avatar-circle" aria-label="Foto profil FERNANDES">
+            <img src="images/P.png" alt="FERNANDES" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="avatar-initials"></span>
+          </div>
+          <div class="floating-badge fb-1" aria-hidden="true">
+            <i class="fas fa-paint-brush"></i> UI/UX Design
+          </div>
+          <div class="floating-badge fb-2" aria-hidden="true">
+            <i class="fas fa-code"></i> Full stack Developer
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     ABOUT
+     ============================================================ -->
+  <section id="about" aria-label="Tentang saya">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">Kenali Saya <span class="accent">Lebih Dekat</span></h2>
+        <div class="divider"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-photo fade-up">
+          <div class="photo-frame" aria-label="Foto profil FERNANDES">
+            <img src="images/P.png" alt="Foto Profil FERNANDES - Full Stack Laravel Developer" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=FERNANDES&background=3B82F6&color=fff&size=250&bold=true&length=2';">
+          </div>
+          <div class="about-info-grid">
+            <div class="info-chip"><i class="fas fa-map-marker-alt"></i> Bontang, ID</div>
+            <div class="info-chip"><i class="fas fa-briefcase"></i> Full-time</div>
+            <div class="info-chip"><i class="fas fa-graduation-cap"></i> S1 Informatika</div>
+            <div class="info-chip"><i class="fas fa-language"></i> ID / EN</div>
+          </div>
+        </div>
+
+        <div class="about-text fade-up fade-up-delay-1">
+          <h3>Full Stack Developer</h3>
+          <p>
+            Saya adalah Full Stack Web Developer dengan spesialisasi di Laravel dan pengalaman membangun aplikasi web dari 
+            nol hingga deployment. Menguasai seluruh lapisan pengembangan: mulai dari desain database menggunakan Eloquent ORM, 
+            pembuatan REST API yang aman dengan Laravel Sanctum/Passport, hingga implementasi frontend responsif menggunakan 
+            Blade, Alpine.js, atau Vue.js dengan Inertia. Saya terbiasa menulis kode yang bersih, terstruktur, dan mengikuti 
+            best practices Laravel seperti Service Repository Pattern, Event-Listener, serta Queue & Job untuk menangani proses 
+            berat secara asinkron.
+          </p>
+          <p>
+            Saya tidak hanya menulis kode yang berfungsi, tetapi juga memastikan aplikasi cepat, aman, dan mudah dikelola. 
+            Pengalaman menangani berbagai kasus nyata seperti optimasi query Eloquent yang lambat, integrasi payment gateway 
+            (Midtrans/Stripe), hingga implementasi real-time notification dengan Laravel Reverb atau Pusher membuat saya 
+            terbiasa berpikir sebagai problem solver. Setiap fitur yang saya bangun selalu mempertimbangkan skalabilitas ke depan 
+            dan kemudahan maintenance bagi tim atau klien.
+          </p>
+          <div class="about-cta">
+            <button class="btn btn-primary" onclick="window.open('https://drive.google.com/file/d/1X0Z_Dh9NWG5ozwQgpId2DmG0YHwe3-P9/view?usp=sharing', '_blank')">
+    <i class="fas fa-download"></i> Download CV
+</button>
+            <button class="btn btn-secondary" onclick="scrollToSection('certificates')">
+              <i class="fas fa-certificate"></i> Lihat Sertifikat
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     TECH STACK
+     ============================================================ -->
+  <section id="techstack" aria-label="Tech stack dan keahlian">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Tech Stack</div>
+            <h2 class="section-title">Teknologi yang <span class="accent">Saya Kuasai</span></h2>
+            <p class="section-desc">Seperangkat alat dan teknologi yang saya gunakan untuk membangun produk digital
+                berkualitas tinggi.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="tech-groups">
+            <!-- Backend (Laravel Ecosystem) -->
+            <div class="fade-up">
+                <p class="tech-group-title"><i class="fas fa-server"></i> Backend Development</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-laravel"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Laravel</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-plug"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">RESTful API</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-shield-alt"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Sanctum / Passport</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Queue & Job</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Livewire</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:87%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-vial"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Pest / PHPUnit</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Frontend -->
+            <div class="fade-up">
+                <p class="tech-group-title"><i class="fas fa-laptop-code"></i> Frontend Development</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-html5"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">HTML5</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:95%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-css3-alt"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">CSS3</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-js"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">JavaScript (ES6+)</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-wind"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Tailwind CSS</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:93%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-vuejs"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Vue.js / Inertia</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-code-branch"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Alpine.js</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Database -->
+            <div class="fade-up">
+                <p class="tech-group-title"><i class="fas fa-database"></i> Database & Caching</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-database"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">MySQL</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-database"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">PostgreSQL</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-memory"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Redis</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:78%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-search"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Eloquent ORM</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:94%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">MongoDB</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Query Optimizer</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:84%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DevOps & Deployment -->
+            <div class="fade-up">
+                <p class="tech-group-title"><i class="fas fa-cloud-upload-alt"></i> DevOps & Deployment</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-git-alt"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Git / GitHub</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:92%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-docker"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Docker</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-fire"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Laravel Forge</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-server"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Ubuntu / Nginx</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-code-branch"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">CI/CD (GitHub Actions)</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:68%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-aws"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Laravel Vapor</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integrasi & Tools -->
+            <div class="fade-up">
+                <p class="tech-group-title"><i class="fas fa-plug"></i> Integrasi & Tools</p>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-credit-card"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Midtrans / Xendit</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-whatsapp"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">WhatsApp Gateway</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-truck"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">RajaOngkir</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Mailgun / Brevo</div>
+                            <div class="tech-level">Advanced</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:84%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fab fa-figma"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">Figma</div>
+                            <div class="tech-level">Intermediate</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:72%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon"><i class="fas fa-code"></i></div>
+                        <div class="tech-info">
+                            <div class="tech-name">VS Code / PHPStorm</div>
+                            <div class="tech-level">Expert</div>
+                            <div class="progress-wrap">
+                                <div class="progress-bar" style="width:94%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- ============================================================
+     CERTIFICATES
+     ============================================================ -->
+  <section id="certificates" aria-label="Sertifikat dan penghargaan">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Credentials</div>
+            <h2 class="section-title">Sertifikat & <span class="accent">Penghargaan</span></h2>
+            <p class="section-desc">Komitmen saya terhadap pembelajaran berkelanjutan, terdokumentasi dalam berbagai
+                sertifikasi profesional.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="cert-grid">
+            <!-- Belajar Penerapan Data Science dengan Microsoft Fabric - April 2026 -->
+            <div class="cert-card fade-up">
+                <div class="cert-icon-wrap"><i class="fas fa-chart-line"></i></div>
+                <h3>Belajar Penerapan Data Science <br>dengan Microsoft Fabric</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">April 2026</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Belajar Penerapan Data Science dengan Microsoft Fabric','Dicoding','April 2026', 'images/certificates/M.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon-wrap"><i class="fas fa-microchip"></i></div>
+                <h3>Ai Engineer</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">April 2026</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Belajar Penerapan Ai Engineer','Dicoding','April 2026', 'images/certificates/Ai.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+            <div class="cert-card fade-up">
+                <div class="cert-icon-wrap"><i class="fas fa-trophy"></i></div>
+                <h3>Penghargaan</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i>Cpanel Bontang</p>
+                <span class="cert-year">Juni 2022</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Juara Umum Competition Programming','Cpanel','juni 2022', 'images/certificates/juara.jpeg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- APPLIED MICROSOFT OFFICE - Maret 2024 -->
+            <div class="cert-card fade-up fade-up-delay-1">
+                <div class="cert-icon-wrap"><i class="fas fa-file-excel"></i></div>
+                <h3>APPLIED MICROSOFT OFFICE</h3>
+                <p class="cert-issuer"><i class="fas fa-building"></i> TRUST TRAINING PARTNERS</p>
+                <span class="cert-year">Maret 2024</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('APPLIED MICROSOFT OFFICE','TRUST TRAINING PARTNERS','Maret 2024', 'images/certificates/T.jpeg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Asisten Laboratorium Teknik Informatika - STITEK Bontang 2023 -->
+            <div class="cert-card fade-up fade-up-delay-2">
+                <div class="cert-icon-wrap"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>ASISTEN LABORATORIUM <br>TEKNIK INFORMATIKA</h3>
+                <p class="cert-issuer"><i class="fas fa-university"></i> STITEK Bontang</p>
+                <span class="cert-year">2023</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Asisten Laboratorium Teknik Informatika','STITEK Bontang','2023', 'images/certificates/A.jpeg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Memulai Dasar Pemrograman Untuk Menjadi Pengembang Software - Dicoding 2023 -->
+            <div class="cert-card fade-up">
+                <div class="cert-icon-wrap"><i class="fas fa-code"></i></div>
+                <h3>Memulai Dasar Pemrograman <br>Untuk Menjadi Pengembang Software</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">2023</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Memulai Dasar Pemrograman Untuk Menjadi Pengembang Software','Dicoding','2023', 'images/certificates/PS.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Belajar Dasar Pemrograman JavaScript - Dicoding 2023 -->
+            <div class="cert-card fade-up fade-up-delay-1">
+                <div class="cert-icon-wrap"><i class="fab fa-js"></i></div>
+                <h3>Belajar Dasar Pemrograman JavaScript</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">2023</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Belajar Dasar Pemrograman JavaScript','Dicoding','2023', 'images/certificates/JS.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Belajar Dasar Manajemen Proyek - Dicoding 2023 -->
+            <div class="cert-card fade-up fade-up-delay-2">
+                <div class="cert-icon-wrap"><i class="fas fa-tasks"></i></div>
+                <h3>Belajar Dasar Manajemen Proyek</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">2023</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Belajar Dasar Manajemen Proyek','Dicoding','2023', 'images/certificates/MP.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Belajar Dasar Structured Query Language (SQL) - Dicoding 2023 -->
+            <div class="cert-card fade-up fade-up-delay-3">
+                <div class="cert-icon-wrap"><i class="fas fa-database"></i></div>
+                <h3>Belajar Dasar Structured Query Language (SQL)</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">2023</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Belajar Dasar Structured Query Language (SQL)','Dicoding','2023', 'images/certificates/SQL.jpg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cloud Practitioner Essentials - Dicoding 2021 -->
+            <div class="cert-card fade-up fade-up-delay-1">
+                <div class="cert-icon-wrap"><i class="fab fa-aws"></i></div>
+                <h3>Cloud Practitioner Essentials</h3>
+                <p class="cert-issuer"><i class="fas fa-graduation-cap"></i> Dicoding</p>
+                <span class="cert-year">2021</span>
+                <div class="cert-actions">
+                    <button class="btn btn-outline"
+                        onclick="openCertModal('Cloud Practitioner Essentials','Dicoding','2021', 'images/certificates/C.jpeg')"
+                        style="width:100%;justify-content:center;">
+                        <i class="fas fa-eye"></i> Lihat Sertifikat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- ============================================================
+     PROJECTS
+     ============================================================ -->
+ <section id="projects" aria-label="Proyek unggulan">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Portfolio</div>
+            <h2 class="section-title">Proyek <span class="accent">Unggulan</span></h2>
+            <p class="section-desc">Kumpulan proyek terbaik yang mencerminkan keahlian dan pendekatan saya dalam membangun
+                produk digital.</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="project-grid">
+            <!-- Proyek 1: Meeting Room Scheduling - PT. Pupuk Kaltim -->
+            <div class="project-card fade-up">
+                <div class="project-thumb">
+                    <img src="images/projects/pkt.png" alt="Aplikasi Penjadwalan Ruang Rapat PT. Pupuk Kaltim">
+                </div>
+                <div class="project-body">
+                    <div class="project-tags">
+                        <span class="tag">Laravel</span>
+                        <span class="tag">Livewire</span>
+                        <span class="tag">Tailwind</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Bootstrap</span>
+                    </div>
+                    <h3>Meeting Room Scheduling Application at PT. Pupuk Kalimantan Timur using Laravel Framework</h3>
+                    <p>Aplikasi Penjadwalan Ruang Rapat pada PT. Pupuk Kalimantan Timur yang dikembangkan dengan Framework Laravel 
+                      (PHP & MySQL) berhasil mengubah prosedur pengelolaan jadwal rapat. Dibandingkan sistem lama, aplikasi ini memudahkan petugas dalam memantau jadwal rapat melalui dashboard, mengelola jadwal, ruang rapat, dan data pengguna, serta memberikan kemudahan bagi peminjam dalam mengajukan ruang rapat.</p>
+                    <div class="project-actions">
+                        <button class="btn btn-primary" onclick="openProjectModal(0)">
+                            <i class="fas fa-info-circle"></i> Detail
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDemoAlert()">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyek 2: MindSpace - Mental Health App -->
+            <div class="project-card fade-up fade-up-delay-1">
+                <div class="project-thumb">
+                    <img src="images/projects/kasir.png" alt="Gama Self Photo Studio – Cashier Management System | Powered by Laravel">
+                </div>
+                <div class="project-body">
+                    <div class="project-tags">
+                        <span class="tag">Laravel</span>
+                        <span class="tag">Livewire</span>
+                        <span class="tag">JS</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">chart.js</span>
+                    </div>
+                    <h3>Gama Self Photo Studio – Cashier Management System | Powered by Laravel</h3>
+                    <p>aplikasi kasir modern berbasis Laravel yang dirancang khusus untuk kebutuhan Gama Self Photo Studio dalam mengelola transaksi penjualan paket foto, cetak foto, dan layanan self photo booth. Dengan ekosistem teknologi yang mencakup MySQL sebagai database, ESC/POS untuk koneksi thermal printer, Livewire untuk antarmuka dinamis, serta fitur laporan harian otomatis dan manajemen stok produk, aplikasi ini memungkinkan kasir melakukan pencatatan transaksi dengan cepat—mulai dari scan barcode paket, menghitung total belanja, membuka laci kasir, hingga mencetak struk thermal dalam hitungan detik. Sistem ini juga dilengkapi dengan tiga role pengguna (admin, kasir, owner), dashboard analitik pendapatan berbasis Chart.js, serta kemampuan ekspor laporan ke Excel/PDF, sehingga pemilik studio dapat memantau omzet harian, bulanan, dan tren layanan foto favorit secara real-time tanpa repot menghitung manual</p>
+                    <div class="project-actions">
+                        <button class="btn btn-primary" onclick="openProjectModal(1)">
+                            <i class="fas fa-info-circle"></i> Detail
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDemoAlert()">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyek 3: GreenTrack — Smart Farming -->
+            <div class="project-card fade-up fade-up-delay-2">
+                <div class="project-thumb">
+                    <img src="images/projects/sci.png" alt="Sistem Informasi Monitoring Pengajuan Term of Reference (TOR) pada PT. Sucofindo Berbasis CodeIgniter 4">
+                </div>
+                <div class="project-body">
+                    <div class="project-tags">
+                        <span class="tag">CodeIgniter</span>
+                        <span class="tag">Bootstrap</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">JS</span>
+                        <span class="tag">Dompdf</span>
+                    </div>
+                    <h3>Sistem Informasi Monitoring Pengajuan Term of Reference (TOR) pada PT. Sucofindo Berbasis CodeIgniter 4</h3>
+                    <p>aplikasi berbasis web yang dikembangkan dengan framework CodeIgniter 4 untuk membantu PT. Sucofindo dalam mengelola dan memantau pengajuan TOR dari berbagai divisi secara terpusat. Aplikasi ini memungkinkan pengguna untuk mengajukan TOR, melacak status persetujuan (draft, review, approved, rejected), serta melihat riwayat pengajuan secara real-time. Dengan sistem role berbasis MVC, admin dapat memonitor seluruh pengajuan, sementara user biasa hanya mengakses pengajuannya sendiri. Fitur notifikasi status, pencarian dan filter berdasarkan tanggal/divisi, serta laporan berkala dalam format Excel/PDF memudahkan manajemen dokumen TOR yang sebelumnya masih manual. Hasilnya, proses pengajuan TOR menjadi lebih transparan, terstruktur, dan efisien</p>
+                    <div class="project-actions">
+                        <button class="btn btn-primary" onclick="openProjectModal(2)">
+                            <i class="fas fa-info-circle"></i> Detail
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDemoAlert()">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyek 4: EduNesia — Platform Belajar -->
+            <div class="project-card fade-up fade-up-delay-3">
+                <div class="project-thumb">
+                    <img src="images/projects/absen.png" alt="LocaFace Attendance – Sistem Absensi Berbasis Foto & GPS dengan Laravel">
+                </div>
+                <div class="project-body">
+                    <div class="project-tags">
+                        <span class="tag">Laravel</span>
+                        <span class="tag">Leaflet.js</span>
+                        <span class="tag">Tailwind</span>
+                        <span class="tag">MySQL</span>
+                        <span class="tag">Livewire</span>
+                    </div>
+                    <h3>LocaFace Attendance – Sistem Absensi Berbasis Foto & GPS dengan Laravel</h3>
+                    <p>sistem absensi berbasis web yang dikembangkan dengan framework Laravel untuk memverifikasi kehadiran karyawan secara akurat melalui kombinasi foto selfie dan koordinat GPS real-time. Karyawan melakukan presensi dengan mengakses halaman absen, mengaktifkan kamera untuk mengambil foto wajah, dan sistem secara otomatis menangkap lokasi GPS mereka menggunakan HTML5 Geolocation API. Aplikasi ini kemudian menghitung jarak antara posisi karyawan dengan lokasi kantor yang telah ditentukan (geofencing) menggunakan rumus Haversine, dan hanya mengizinkan absensi jika jarak berada dalam radius yang ditentukan (misalnya 100 meter). Foto selfie, timestamp, koordinat, dan status validasi disimpan ke database MySQL sebagai bukti digital yang dapat dipertanggungjawabkan. Dengan dashboard yang menampilkan peta lokasi absensi via Leaflet.js, laporan ekspor ke Excel/PDF, serta notifikasi real-time, sistem ini efektif mencegah kecurangan seperti titip absen atau absen dari lokasi tidak resmi—sangat cocok untuk perusahaan dengan banyak karyawan lapangan atau multiple site.</p>
+                    <div class="project-actions">
+                        <button class="btn btn-primary" onclick="openProjectModal(3)">
+                            <i class="fas fa-info-circle"></i> Detail
+                        </button>
+                        <button class="btn btn-secondary" onclick="showDemoAlert()">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  <!-- ============================================================
+     CONTACT
+     ============================================================ -->
+  <section id="contact" aria-label="Formulir kontak">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Mari <span class="accent">Berkolaborasi</span></h2>
+        <p class="section-desc">Punya ide proyek atau ingin berdiskusi? Saya selalu terbuka untuk peluang dan kolaborasi
+          baru.</p>
+        <div class="divider"></div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info fade-up">
+          <h3>Hubungi Saya</h3>
+          <p>Jangan ragu untuk menghubungi saya melalui form atau media sosial. Saya biasanya membalas dalam 24 jam.</p>
+
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-item-text">
+              <small>Email</small>
+              <span>nandesfernandes123321@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-item-text">
+              <small>Lokasi</small>
+              <span>Bontang, Kalimantan Timur</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-text">
+              <small>WhatsApp</small>
+              <span>+62 823-4934-0835</span>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="LinkedIn" onclick="return false;"><i
+                class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-link" aria-label="GitHub" onclick="return false;"><i
+                class="fab fa-github"></i></a>
+            <a href="#" class="social-link" aria-label="Instagram" onclick="return false;"><i
+                class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap fade-up fade-up-delay-1">
+          <form id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="name">Nama Lengkap *</label>
+              <input type="text" id="name" name="name" placeholder="Contoh: Budi Santoso" autocomplete="name">
+              <div class="form-error" id="nameError">Nama tidak boleh kosong.</div>
+            </div>
+            <div class="form-group">
+              <label for="email">Alamat Email *</label>
+              <input type="email" id="email" name="email" placeholder="nama@email.com" autocomplete="email">
+              <div class="form-error" id="emailError">Masukkan email yang valid.</div>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subjek</label>
+              <input type="text" id="subject" name="subject" placeholder="Topik pesan Anda">
+            </div>
+            <div class="form-group">
+              <label for="message">Pesan *</label>
+              <textarea id="message" name="message" placeholder="Ceritakan proyek atau ide Anda..."></textarea>
+              <div class="form-error" id="messageError">Pesan tidak boleh kosong.</div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+              <i class="fas fa-paper-plane"></i> Kirim Pesan
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+  <footer role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        &copy; <span id="currentYear"></span> <strong>FERNANDES</strong> 
+        
+      </div>
+      <div class="footer-links">
+        <a href="#home">Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top -->
+  <button id="scrollTop" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ============================================================
+     MODALS
+     ============================================================ -->
+  <!-- Project Modal -->
+  <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalProjectTitle">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('projectModal')" aria-label="Tutup modal"><i
+          class="fas fa-times"></i></button>
+      <div class="modal-thumb" id="modalProjectThumb"><i class="fas fa-cube"></i></div>
+      <h2 id="modalProjectTitle"></h2>
+      <div class="modal-tags" id="modalProjectTags"></div>
+      <p id="modalProjectDesc"></p>
+      <p id="modalProjectDetails" style="font-size:0.85rem;"></p>
+      <div class="modal-actions">
+        <a href="#" class="btn btn-primary" onclick="return false;"><i class="fas fa-external-link-alt"></i> Live
+          Demo</a>
+        <a href="#" class="btn btn-secondary" onclick="return false;"><i class="fab fa-github"></i> Source Code</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certificate Modal -->
+  <div class="modal-overlay" id="certModal" role="dialog" aria-modal="true" aria-labelledby="modalCertTitle">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('certModal')" aria-label="Tutup modal"><i
+          class="fas fa-times"></i></button>
+      <div class="cert-preview" id="certPreview">
+        <i class="fas fa-certificate"></i>
+        <p id="certPreviewText">Preview Sertifikat</p>
+      </div>
+      <h2 id="modalCertTitle"></h2>
+      <p id="modalCertIssuer" style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:8px;"></p>
+      <span class="cert-year" id="modalCertYear"></span>
+      <div class="modal-actions" style="margin-top:20px;">
+        <button class="btn btn-primary" onclick="closeModal('certModal')"><i class="fas fa-check"></i> Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+  <script>
+    /* ─── DATA ─────────────────────────────────────────────────── */
+    const projects = [
+      {
+        title: 'Meeting Room Scheduling Application at PT. Pupuk Kalimantan Timur using Laravel Framework',
+        icon: 'fa-users',
+        bg: 'linear-gradient(135deg,#0f2a4a,#1d6aa5)',
+        tags: ['Laravel', 'Livewire', 'Tailwind CSS', 'MySQL', 'Midtrans', 'REST API'],
+        desc: 'Aplikasi Penjadwalan Ruang Rapat pada PT. Pupuk Kalimantan Timur yang dikembangkan dengan Framework Laravel (PHP & MySQL) berhasil mengubah prosedur pengelolaan jadwal rapat. Dibandingkan sistem lama, aplikasi ini memudahkan petugas dalam memantau jadwal rapat melalui dashboard, mengelola jadwal, ruang rapat, dan data pengguna, serta memberikan kemudahan bagi peminjam dalam mengajukan ruang rapat.',
+        details: ''
+      },
+      {
+        title: 'Gama Self Photo Studio – Cashier Management System | Powered by Larave',
+        icon: 'fa-cash-register',
+        bg: 'linear-gradient(135deg,#2a1a0f,#92400e)',
+        tags: ['Laravel', 'Vue.js', 'Inertia', 'PostgreSQL', 'Reverb', 'WebSocket'],
+        desc: 'aplikasi kasir modern berbasis Laravel yang dirancang khusus untuk kebutuhan Gama Self Photo Studio dalam mengelola transaksi penjualan paket foto, cetak foto, dan layanan self photo booth. Dengan ekosistem teknologi yang mencakup MySQL sebagai database, ESC/POS untuk koneksi thermal printer, Livewire untuk antarmuka dinamis, serta fitur laporan harian otomatis dan manajemen stok produk, aplikasi ini memungkinkan kasir melakukan pencatatan transaksi dengan cepat—mulai dari scan barcode paket, menghitung total belanja, membuka laci kasir, hingga mencetak struk thermal dalam hitungan detik. Sistem ini juga dilengkapi dengan tiga role pengguna (admin, kasir, owner), dashboard analitik pendapatan berbasis Chart.js, serta kemampuan ekspor laporan ke Excel/PDF, sehingga pemilik studio dapat memantau omzet harian, bulanan, dan tren layanan foto favorit secara real-time tanpa repot menghitung manual',
+        details: ''
+      },
+      {
+        title: 'Sistem Informasi Monitoring Pengajuan Term of Reference (TOR) pada PT. Sucofindo Berbasis CodeIgniter 4',
+        icon: 'fa-file-alt',
+        bg: 'linear-gradient(135deg,#0f2a4a,#1d6aa5)',
+        tags: ['Laravel', 'Livewire', 'MySQL', 'REST API', 'MQTT', 'Chart.js'],
+        desc: 'aplikasi berbasis web yang dikembangkan dengan framework CodeIgniter 4 untuk membantu PT. Sucofindo dalam mengelola dan memantau pengajuan TOR dari berbagai divisi secara terpusat. Aplikasi ini memungkinkan pengguna untuk mengajukan TOR, melacak status persetujuan (draft, review, approved, rejected), serta melihat riwayat pengajuan secara real-time. Dengan sistem role berbasis MVC, admin dapat memonitor seluruh pengajuan, sementara user biasa hanya mengakses pengajuannya sendiri. Fitur notifikasi status, pencarian dan filter berdasarkan tanggal/divisi, serta laporan berkala dalam format Excel/PDF memudahkan manajemen dokumen TOR yang sebelumnya masih manual. Hasilnya, proses pengajuan TOR menjadi lebih transparan, terstruktur, dan efisien.',
+        details: ''
+      },
+      {
+        title: 'LocaFace Attendance – Sistem Absensi Berbasis Foto & GPS dengan Laravel',
+        icon: 'fa-location-dot',
+        bg: 'linear-gradient(135deg,#2a1a0f,#92400e)',
+        tags: ['Laravel', 'Alpine.js', 'Tailwind CSS', 'MySQL', 'Livewire', 'Queue'],
+        desc: 'sistem absensi berbasis web yang dikembangkan dengan framework Laravel untuk memverifikasi kehadiran karyawan secara akurat melalui kombinasi foto selfie dan koordinat GPS real-time. Karyawan melakukan presensi dengan mengakses halaman absen, mengaktifkan kamera untuk mengambil foto wajah, dan sistem secara otomatis menangkap lokasi GPS mereka menggunakan HTML5 Geolocation API. Aplikasi ini kemudian menghitung jarak antara posisi karyawan dengan lokasi kantor yang telah ditentukan (geofencing) menggunakan rumus Haversine, dan hanya mengizinkan absensi jika jarak berada dalam radius yang ditentukan (misalnya 100 meter). Foto selfie, timestamp, koordinat, dan status validasi disimpan ke database MySQL sebagai bukti digital yang dapat dipertanggungjawabkan. Dengan dashboard yang menampilkan peta lokasi absensi via Leaflet.js, laporan ekspor ke Excel/PDF, serta notifikasi real-time, sistem ini efektif mencegah kecurangan seperti titip absen atau absen dari lokasi tidak resmi—sangat cocok untuk perusahaan dengan banyak karyawan lapangan atau multiple site',
+        details: ''
+      }
+    ];
+
+    /* ─── TYPING EFFECT ─────────────────────────────────────────── */
+    const typingTexts = [
+      'Laravel Developer',
+      'System Architect',
+      'UI/UX Designer',
+      'Frontend Developer',
+      'Security Enthusiast',
+      'Performance Optimizer',
+      'API Specialist',
+      'Problem Solver'
+    ];
+    let typingIdx = 0, charIdx = 0, isDeleting = false;
+    const typingEl = document.getElementById('typingText');
+
+    function typeEffect() {
+      const current = typingTexts[typingIdx];
+      if (isDeleting) {
+        typingEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+      } else {
+        typingEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+      }
+      if (!isDeleting && charIdx === current.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1800);
+        return;
+      }
+      if (isDeleting && charIdx === 0) {
+        isDeleting = false;
+        typingIdx = (typingIdx + 1) % typingTexts.length;
+      }
+      setTimeout(typeEffect, isDeleting ? 60 : 110);
+    }
+    typeEffect();
+
+    /* ─── NAVBAR ─────────────────────────────────────────────────── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+      document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+    }, { passive: true });
+
+    /* ─── HAMBURGER ──────────────────────────────────────────────── */
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileNav.classList.toggle('open', menuOpen);
+      hamburger.setAttribute('aria-expanded', menuOpen);
+    });
+
+    mobileNav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menuOpen = false;
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ─── THEME TOGGLE ───────────────────────────────────────────── */
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    let isDark = true;
+
+    themeToggle.addEventListener('click', () => {
+      isDark = !isDark;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      themeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+    });
+
+    /* ─── SMOOTH SCROLL ──────────────────────────────────────────── */
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        const offset = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+      }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = a.getAttribute('href');
+        if (target && target.length > 1 && target !== '#') {
+          e.preventDefault();
+          const id = target.slice(1);
+          scrollToSection(id);
+        }
+      });
+    });
+
+    /* ─── FADE UP OBSERVER ───────────────────────────────────────── */
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ─── DOWNLOAD CV ────────────────────────────────────────────── */
+    function downloadCV() {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.6);
+        backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;
+      `;
+      overlay.innerHTML = `
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:36px;max-width:400px;width:100%;text-align:center;">
+          <div style="width:64px;height:64px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;color:var(--accent);">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <h3 style="font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:10px;color:var(--text-primary);">Download CV</h3>
+          <p style="color:var(--text-secondary);font-size:0.875rem;margin-bottom:24px;line-height:1.6;">
+            Silakan hubungi saya langsung untuk mendapatkan file CV lengkap.
+          </p>
+          <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+            <button onclick="scrollToSection('contact');this.closest('[style]').remove();" style="padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:0.875rem;display:flex;align-items:center;gap:6px;">
+              <i class="fas fa-envelope"></i> Hubungi Saya
+            </button>
+            <button onclick="this.closest('[style]').remove();" style="padding:10px 20px;background:transparent;color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.875rem;">
+              Tutup
+            </button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+    }
+
+    /* ─── PROJECT MODAL ──────────────────────────────────────────── */
+    function openProjectModal(idx) {
+      const p = projects[idx];
+      const modal = document.getElementById('projectModal');
+      document.getElementById('modalProjectTitle').textContent = p.title;
+      const thumb = document.getElementById('modalProjectThumb');
+      thumb.style.background = p.bg;
+      thumb.innerHTML = `<i class="fas ${p.icon}" style="position:relative;z-index:1;color:#fff;"></i>`;
+      const tagsEl = document.getElementById('modalProjectTags');
+      tagsEl.innerHTML = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
+      document.getElementById('modalProjectDesc').textContent = p.desc;
+      document.getElementById('modalProjectDetails').textContent = p.details;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* ─── CERTIFICATE MODAL ───────────────────────────────────────── */
+    function openCertModal(name, issuer, year, imagePath) {
+      const modal = document.getElementById('certModal');
+      document.getElementById('modalCertTitle').textContent = name;
+      document.getElementById('modalCertIssuer').innerHTML = `<i class="fas fa-building" style="color:var(--accent);margin-right:6px;"></i>${issuer}`;
+      document.getElementById('modalCertYear').textContent = year;
+      const previewEl = document.getElementById('certPreview');
+      if (imagePath && imagePath.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
+        previewEl.innerHTML = `<img src="${imagePath}" alt="${name}" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">`;
+      } else {
+        previewEl.innerHTML = `<i class="fas fa-certificate"></i><p>Preview Sertifikat: ${name}</p>`;
+      }
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    /* ─── CLOSE MODAL ────────────────────────────────────────────── */
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(m => {
+          m.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+      }
+    });
+
+    /* ─── CONTACT FORM ───────────────────────────────────────────── */
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const message = document.getElementById('message');
+      const nameErr = document.getElementById('nameError');
+      const emailErr = document.getElementById('emailError');
+      const msgErr = document.getElementById('messageError');
+
+      nameErr.classList.remove('show');
+      emailErr.classList.remove('show');
+      msgErr.classList.remove('show');
+      [name, email, message].forEach(f => f.style.borderColor = '');
+
+      if (!name.value.trim()) {
+        nameErr.classList.add('show');
+        name.style.borderColor = '#f87171';
+        valid = false;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        emailErr.classList.add('show');
+        email.style.borderColor = '#f87171';
+        valid = false;
+      }
+      if (!message.value.trim()) {
+        msgErr.classList.add('show');
+        message.style.borderColor = '#f87171';
+        valid = false;
+      }
+      if (!valid) return;
+
+      const btn = this.querySelector('[type="submit"]');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        this.reset();
+        btn.innerHTML = '<i class="fas fa-check"></i> Pesan Terkirim!';
+        btn.style.background = '#22c55e';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 3000);
+      }, 1500);
+    });
+
+    /* ─── YEAR ───────────────────────────────────────────────────── */
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    /* ─── INITIAL FADE ───────────────────────────────────────────── */
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.hero-content .fade-up, .hero-visual.fade-up').forEach(el => {
+        el.classList.add('visible');
+      });
+    });
+  </script>
+
+</body>
+
+</html>
